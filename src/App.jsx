@@ -1,6 +1,5 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
+
 import "./App.css";
 
 function App() {
@@ -8,7 +7,9 @@ function App() {
 
   return (
     <>
-      <div>Witaj swiecie!!!</div>
+      <h1 className="text-2xl bg-amber-50 border border-2 rounded-2xl">
+        Hello world!
+      </h1>
     </>
   );
 }
