@@ -1,7 +1,46 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@plugin "daisyui/theme" {
+  name: "epicgames"; /* Custom Theme Name */
+  default: true; /* Set as default theme */
+  prefersdark: true; /* Enable dark mode */
+  color-scheme: dark; /* Browser UI in dark mode */
+
+  --color-base-100: #181818; /* Dark background */
+  --color-base-200: #121212; /* Slightly darker */
+  --color-base-300: #0d0d0d; /* Even darker */
+  --color-base-content: #ffffff; /* Text color */
+
+  --color-primary: #2a2a2a; /* Epic Games Gray */
+  --color-primary-content: #ffffff; /* White text on buttons */
+
+  --color-secondary: #121212; /* Secondary background */
+  --color-secondary-content: #ffffff;
+
+  --color-accent: #0078f2; /* Epic Games Blue */
+  --color-accent-content: #ffffff;
+
+  --color-neutral: #1b1b1b;
+  --color-neutral-content: #ffffff;
+
+  --color-info: #0078f2; /* Blue */
+  --color-success: #28a745; /* Green */
+  --color-warning: #ffc107; /* Yellow */
+  --color-error: #dc3545; /* Red */
+
+  /* Border Radius */
+  --radius-selector: 0.5rem;
+  --radius-field: 0.25rem;
+  --radius-box: 0.5rem;
+
+  /* Border Size */
+  --border: 1px;
+}
 
 #root {
   margin: 0 !important;
   padding: 0 !important;
+  max-width: 100% !important;
+  text-align: left !important;
+  width: 100% !important;
 }
