@@ -1,6 +1,6 @@
 # Universal Design Web Application
 
-## Application based on Epic Games Store Website with use of universal design guidelines.
+## An application based on the Epic Games Store website, utilizing universal design guidelines
 
 ### Built With
 
