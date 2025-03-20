@@ -26,7 +26,7 @@ const LoginRegisterPage = () => {
           <div className="text-sm text-blue-500 mt-2 cursor-pointer">
             Nie pamiętasz hasła?
           </div>
-          <button className="btn btn-accent w-full mt-4">Zaloguj</button>
+          <button className="btn btn-accent w-full mt-3">Zaloguj</button>
         </div>
 
         <div className="text-xl font-bold text-gray-500">Lub</div>
