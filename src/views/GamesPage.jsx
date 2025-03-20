@@ -12,7 +12,7 @@ const Store = () => {
 
   return (
     <div className="min-h-screen bg-gray-900 text-white px-10 py-6">
-      <div className="w-full h-96 bg-cover bg-center flex items-center justify-center mb-8" style={{ backgroundImage: "url('/images/hero-banner.jpg')" }}>
+      <div className="w-full h-96 bg-cover bg-center flex items-center justify-center mb-8" style={{ backgroundImage: "" }}>
         <h2 className="text-5xl font-bold">Odkryj nowe gry</h2>
       </div>
       
@@ -23,7 +23,7 @@ const Store = () => {
             <img src={game.image} alt={game.title} className="w-full h-60 object-cover rounded-md" />
             <h2 className="text-2xl font-bold mt-4">{game.title}</h2>
             <p className="text-lg mt-2 text-gray-400">{game.price}</p>
-            <button className="mt-4 bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg w-full">Kup teraz</button>
+            <button className="mt-4 bg-blue-600 hover:bg-blue-500 text-white py-2 px-4 rounded-lg w-full">Kup teraz </button>
           </div>
         ))}
       </div>
