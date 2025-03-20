@@ -2,7 +2,7 @@ const InputWithHint = ({ fieldName, typeOf, example, hint }) => {
   return (
     <div>
       <fieldset class="fieldset">
-        <legend class="fieldset-legend">{fieldName}</legend>
+        <legend class="fieldset-legend font-bold">{fieldName}</legend>
         <input
           class="input validator"
           type={typeOf}

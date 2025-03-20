@@ -3,10 +3,9 @@ import InputWithHint from "../components/InputWithHint";
 const LoginRegisterPage = () => {
   return (
     <div className="flex justify-center items-center min-h-screen ">
-      <div className="flex flex-col md:flex-row items-center gap-8  p-8 shadow-lg rounded-2xl">
+      <div className="flex flex-col md:flex-row items-center gap-8  p-5 rounded-2xl ">
         
-        {/* Login Form */}
-        <div className="bg-base-200 border border-primary rounded-2xl p-6 w-80 text-center">
+        <div className="bg-base-200 border border-primary rounded-2xl p-6 w-80 text-center shadow-lg">
           <h2 className="text-2xl font-bold mb-4">Zaloguj się</h2>
           <InputWithHint
             fieldName="Login / Email"
@@ -27,14 +26,12 @@ const LoginRegisterPage = () => {
           <div className="text-sm text-blue-500 mt-2 cursor-pointer">
             Nie pamiętasz hasła?
           </div>
-          <button className="mt-4 w-full py-2 bg-primary text-white rounded-lg">Zaloguj</button>
+          <button className="btn btn-accent w-full mt-4">Zaloguj</button>
         </div>
 
-        {/* OR Divider */}
         <div className="text-xl font-bold text-gray-500">Lub</div>
 
-        {/* Register Form */}
-        <div className="bg-base-200 border border-primary rounded-2xl p-6 w-80 text-center">
+        <div className="bg-base-200 border border-primary rounded-2xl p-6 w-80 text-center shadow-lg">
           <h2 className="text-2xl font-bold mb-4">Zarejestruj się</h2>
           <InputWithHint
             fieldName="Email"
@@ -60,7 +57,7 @@ const LoginRegisterPage = () => {
             example=""
             hint="Haslo nie moze byc puste!"
           />
-          <button className="mt-4 w-full py-2 bg-primary text-white rounded-lg">Zarejestruj</button>
+          <button className="btn btn-accent w-full">Zarejestruj</button>
         </div>
       </div>
     </div>
