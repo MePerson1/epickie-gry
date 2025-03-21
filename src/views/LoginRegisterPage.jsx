@@ -23,9 +23,12 @@ const LoginRegisterPage = () => {
             <input type="checkbox" className="checkbox" />
             Zapamiętaj mnie
           </label>
-          <div className="text-sm text-blue-500 mt-2 cursor-pointer">
-            Nie pamiętasz hasła?
+          <div className="p-2">
+            <a className="link link-hover text-sm text-info">
+              Nie pamiętasz hasła?
+            </a>
           </div>
+          
           <button className="btn btn-accent w-full mt-3">Zaloguj</button>
         </div>
 
