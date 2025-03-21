@@ -9,7 +9,7 @@ const NewsPage = () => {
   return (
     <div >
       
-      <h1 className="text-2xl font-bold">Epickie Gry Aktualności</h1>
+      <h1 className="text-3xl font-bold">Aktualności</h1>
       <Paggination />
       <div className="grid grid-cols-1 gap-5">
         {
