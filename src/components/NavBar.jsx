@@ -39,7 +39,7 @@ const NavBar = () => {
                 to="/news"
                 className={({ isActive }) => (isActive ? "active-link" : "")}
               >
-                Nowości
+                Aktualności
               </NavLink>
             </li>
           </ul>
@@ -63,7 +63,7 @@ const NavBar = () => {
               to="/news"
               className={({ isActive }) => (isActive ? "active-link" : "")}
             >
-              Nowości
+              Aktualności
             </NavLink>
           </li>
         </ul>
