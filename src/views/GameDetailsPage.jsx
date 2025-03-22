@@ -1,4 +1,3 @@
-// src/views/GameDetailsPage.jsx
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { games } from '../data/gamesData';
@@ -18,7 +17,6 @@ const GameDetailsPage = () => {
   return (
     <main className="bg-neutral text-neutral-content">
       <section className="max-w-4xl mx-auto p-8">
-        {/* Karta z obrazem w stylu gridu – zmieniona wysokość na h-80 */}
         <div className="card bg-base-100 shadow-sm">
           <div
             className="relative h-80 w-full bg-contain bg-center bg-no-repeat"
@@ -30,7 +28,6 @@ const GameDetailsPage = () => {
           </div>
         </div>
 
-        {/* Pozostałe informacje o grze */}
         <div className="mt-8">
           <h2 className="text-2xl font-bold mb-4">Opis</h2>
           <p className="mb-4">{game.description}</p>

@@ -42,6 +42,12 @@ const NavBar = () => {
                 Nowości
               </NavLink>
             </li>
+            <li>
+              <button className="btn btn-outline">Zmień motyw</button>
+            </li>
+            <li>
+              <button className="btn btn-outline">Zmień czcionkę</button>
+            </li>
           </ul>
         </div>
         <NavLink to="/" className="btn btn-ghost text-xl">
@@ -65,6 +71,12 @@ const NavBar = () => {
             >
               Nowości
             </NavLink>
+          </li>
+          <li>
+            <button className="btn btn-outline">Zmień motyw</button>
+          </li>
+          <li>
+            <button className="btn btn-outline">Zmień czcionkę</button>
           </li>
         </ul>
       </div>
