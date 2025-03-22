@@ -396,16 +396,16 @@ function GamesPage() {
 
         <div className="flex-1 p-4">
           <div className="flex items-center justify-between mb-4">
-            <div className="text-xl font-semibold">Browse Games</div>
+            <div className="text-xl font-semibold"> Wyszukiwarka</div>
             <div className="flex items-center gap-2 text-sm">
-              <span>Show:</span>
+              <span>Sortuj</span>
               <div className="dropdown dropdown-end">
                 <label
                   tabIndex={0}
                   className="btn btn-ghost normal-case flex items-center gap-1"
                 >
-                  {sortOption === 'releaseDateDesc' && 'New Release'}
-                  {sortOption === 'releaseDateAsc' && 'Old Release'}
+                  {sortOption === 'releaseDateDesc' && 'Najnowsze'}
+                  {sortOption === 'releaseDateAsc' && 'Najstarsze'}
                   {sortOption === 'titleAsc' && 'A-Z'}
                   {sortOption === 'titleDesc' && 'Z-A'}
                   <svg
