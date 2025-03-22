@@ -119,7 +119,7 @@ function GamesPage() {
           </div>
           <div className="mb-2 collapse collapse-arrow">
             <input type="checkbox" className="peer" defaultChecked />
-            <div className="collapse-title text-md font-medium">Events</div>
+            <div className="collapse-title text-md font-medium">Wydarzenia</div>
             <div className="collapse-content">
               <label className="flex items-center gap-2">
                 <input
@@ -128,13 +128,13 @@ function GamesPage() {
                   checked={eventsChecked}
                   onChange={(e) => setEventsChecked(e.target.checked)}
                 />
-                <span>Pokaz wydarzenia</span>
+                <span>Wydarzenie </span>
               </label>
             </div>
           </div>
           <div className="mb-2 collapse collapse-arrow">
             <input type="checkbox" className="peer" defaultChecked />
-            <div className="collapse-title text-md font-medium">Price</div>
+            <div className="collapse-title text-md font-medium">Cena</div>
             <div className="collapse-content">
               <label className="flex items-center gap-2 mb-1">
                 <input
@@ -191,7 +191,7 @@ function GamesPage() {
           </div>
           <div className="mb-2 collapse collapse-arrow">
             <input type="checkbox" className="peer" defaultChecked />
-            <div className="collapse-title text-md font-medium">Genre</div>
+            <div className="collapse-title text-md font-medium">Gatunek</div>
             <div className="collapse-content">
               <label className="flex items-center gap-2 mb-1">
                 <input
@@ -208,7 +208,7 @@ function GamesPage() {
                     setGenreFilters(copy);
                   }}
                 />
-                <span>Action</span>
+                <span>Akcja</span>
               </label>
               <label className="flex items-center gap-2 mb-1">
                 <input
@@ -248,7 +248,7 @@ function GamesPage() {
           </div>
           <div className="mb-2 collapse collapse-arrow">
             <input type="checkbox" className="peer" defaultChecked />
-            <div className="collapse-title text-md font-medium">Features</div>
+            <div className="collapse-title text-md font-medium">Funkcje</div>
             <div className="collapse-content">
               <label className="flex items-center gap-2 mb-1">
                 <input
@@ -305,7 +305,7 @@ function GamesPage() {
           </div>
           <div className="mb-2 collapse collapse-arrow">
             <input type="checkbox" className="peer" defaultChecked />
-            <div className="collapse-title text-md font-medium">Types</div>
+            <div className="collapse-title text-md font-medium">Typ</div>
             <div className="collapse-content">
               <label className="flex items-center gap-2 mb-1">
                 <input
