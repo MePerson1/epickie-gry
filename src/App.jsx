@@ -15,7 +15,7 @@ const App = () => {
         <Route path="/" element={<GamesPage />} />
         <Route path="/news" element={<NewsPage />} />
         <Route path="/login" element={<LoginRegisterPage />} />
-        <Route path="/idgry" element={<GameDetailsPage />} />
+        <Route path="/game/:id" element={<GameDetailsPage />} />
         <Route path="*" element={<>Page not found</>} />
       </Routes>
       <Footer/>
