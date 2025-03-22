@@ -16,16 +16,21 @@ const GameDetailsPage = () => {
 
   return (
     <main className="bg-neutral text-neutral-content">
-      <section
-        className="relative h-96 bg-cover bg-center"
-        style={{ backgroundImage: `url(${game.image})` }}
-      >
-        <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-        <div className="relative z-10 p-8">
-          <h1 className="text-4xl font-bold">{game.title}</h1>
-          <p className="text-xl">{game.subtitle}</p>
-        </div>
-      </section>
+   <section
+  className="relative h-64 bg-cover bg-center mx-auto w-full max-w-3xl"
+  style={{ backgroundImage: `url(${game.image})` }}
+>
+  <div className="absolute inset-0 flex flex-col justify-center px-6 md:px-12">
+    <h2 className="text-3xl font-bold mb-2">{game.title}</h2>
+    <p className="text-sm mb-1">{game.subtitle}</p>
+    <p className="max-w-lg mb-2">{game.description}</p>
+    <p className="text-sm mb-4">{game.price}</p>
+    <div className="flex gap-2">
+      <button className="btn btn-primary">Kup teraz</button>
+      <button className="btn btn-outline">Dodaj do listy życzeń</button>
+    </div>
+  </div>
+</section>
 
       <section className="max-w-4xl mx-auto p-8">
         <h2 className="text-2xl font-bold mb-4">Opis</h2>

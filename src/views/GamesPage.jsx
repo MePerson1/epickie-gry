@@ -41,7 +41,6 @@ const GamesPage = () => {
             className="relative flex-1 bg-cover bg-center rounded h-64 md:h-96"
             style={{ backgroundImage: `url(${selectedGame.image})` }}
           >
-            <div className="absolute inset-0 bg-black bg-opacity-30 rounded"></div>
             <div className="absolute inset-0 flex flex-col justify-center px-6 md:px-12">
               <h2 className="text-3xl font-bold mb-2">{selectedGame.title}</h2>
               <p className="text-sm mb-1">{selectedGame.subtitle}</p>
