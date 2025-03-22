@@ -13,8 +13,9 @@ function parsePrice(str) {
   const normalized = numericString.replace(',', '.');
   return parseFloat(normalized) || 0;
 }
-function GamesPage() {
 
+function GamesPage() {
+  // Filtry oraz sortowanie
   const [keywords, setKeywords] = useState('');
   const [eventsChecked, setEventsChecked] = useState(false);
   const [priceFilters, setPriceFilters] = useState([]);
@@ -22,9 +23,11 @@ function GamesPage() {
   const [featureFilters, setFeatureFilters] = useState([]);
   const [typeFilters, setTypeFilters] = useState([]);
   const [subscriptionsChecked, setSubscriptionsChecked] = useState(false);
-
   const [sortOption, setSortOption] = useState('releaseDateDesc');
 
+  // Paginacja
+  const [currentPage, setCurrentPage] = useState(1);
+  const itemsPerPage = 40;
 
   function filterGames(list) {
     return list.filter((game) => {
@@ -75,7 +78,6 @@ function GamesPage() {
     });
   }
 
-
   function sortGames(list) {
     const sorted = [...list];
     sorted.sort((a, b) => {
@@ -97,7 +99,16 @@ function GamesPage() {
 
   const filtered = filterGames(games);
   const sorted = sortGames(filtered);
-  const gamesToShow = sorted.slice(0, 40);
+  const totalPages = Math.ceil(sorted.length / itemsPerPage);
+  const gamesToShow = sorted.slice(
+    (currentPage - 1) * itemsPerPage,
+    currentPage * itemsPerPage
+  );
+
+  // Reset paginacji jeśli aktualna strona przekracza liczbę stron (np. po zmianie filtrów)
+  if (currentPage > totalPages && totalPages > 0) {
+    setCurrentPage(1);
+  }
 
   return (
     <main className="bg-neutral text-neutral-content min-h-screen">
@@ -128,7 +139,7 @@ function GamesPage() {
                   checked={eventsChecked}
                   onChange={(e) => setEventsChecked(e.target.checked)}
                 />
-                <span>Wydarzenie </span>
+                <span>Wydarzenie</span>
               </label>
             </div>
           </div>
@@ -322,7 +333,7 @@ function GamesPage() {
                     setTypeFilters(copy);
                   }}
                 />
-                <span>Gra </span>
+                <span>Gra</span>
               </label>
               <label className="flex items-center gap-2 mb-1">
                 <input
@@ -396,7 +407,7 @@ function GamesPage() {
 
         <div className="flex-1 p-4">
           <div className="flex items-center justify-between mb-4">
-            <div className="text-xl font-semibold"> Wyszukiwarka</div>
+            <div className="text-xl font-semibold">Wyszukiwarka</div>
             <div className="flex items-center gap-2 text-sm">
               <span>Sortuj</span>
               <div className="dropdown dropdown-end">
@@ -426,7 +437,8 @@ function GamesPage() {
                 <ul className="dropdown-content menu p-2 shadow bg-base-100 rounded w-52">
                   <li>
                     <button onClick={() => setSortOption('releaseDateDesc')}>
-Najnowsze                    </button>
+                      Najnowsze
+                    </button>
                   </li>
                   <li>
                     <button onClick={() => setSortOption('releaseDateAsc')}>
@@ -455,11 +467,10 @@ Najnowsze                    </button>
                 to={`/game/${game.id}`}
                 className="group block bg-base-100 rounded overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
               >
-              <div
-  className="relative h-48 w-full bg-contain bg-center bg-no-repeat"
-  style={{ backgroundImage: `url(${game.image})` }}
->
-                </div>
+                <div
+                  className="relative h-48 w-full bg-contain bg-center bg-no-repeat"
+                  style={{ backgroundImage: `url(${game.image})` }}
+                ></div>
                 <div className="p-4">
                   <h2 className="text-lg font-bold group-hover:underline">
                     {game.title}
@@ -470,6 +481,21 @@ Najnowsze                    </button>
               </Link>
             ))}
           </div>
+
+          {/* Paginacja */}
+          {totalPages > 1 && (
+            <div className="pagination mt-4 flex justify-center gap-2">
+              {Array.from({ length: totalPages }, (_, index) => (
+                <button
+                  key={index}
+                  onClick={() => setCurrentPage(index + 1)}
+                  className={`btn ${currentPage === index + 1 ? 'btn-active' : ''}`}
+                >
+                  {index + 1}
+                </button>
+              ))}
+            </div>
+          )}
         </div>
       </div>
     </main>
