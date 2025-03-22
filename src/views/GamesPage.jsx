@@ -1,314 +1,480 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
-import {
-  games,
-  newGames,
-  discountedGames,
-  freeGames,
-  bestsellers,
-  mostPlayed,
-  upcomingWishlist,
-} from '../data/gamesData';
+import { games } from '../data/gamesData';
 
-const GamesPage = () => {
-  const itemsPerPage = 5;
-  
-  const [selectedGame, setSelectedGame] = useState(games[0]);
+function parsePrice(str) {
+  if (typeof str === 'string') {
+    const lower = str.toLowerCase();
+    if (lower.includes('bezpłatne') || lower.includes('za darmo') || lower.includes('tba')) {
+      return 0;
+    }
+  }
+  const numericString = str.replace(/[^\d,\.]/g, '');
+  const normalized = numericString.replace(',', '.');
+  return parseFloat(normalized) || 0;
+}
+function GamesPage() {
 
-  const [newGamesPage, setNewGamesPage] = useState(0);
-  const newGamesToShow = newGames.slice(
-    newGamesPage * itemsPerPage,
-    newGamesPage * itemsPerPage + itemsPerPage
-  );
+  const [keywords, setKeywords] = useState('');
+  const [eventsChecked, setEventsChecked] = useState(false);
+  const [priceFilters, setPriceFilters] = useState([]);
+  const [genreFilters, setGenreFilters] = useState([]);
+  const [featureFilters, setFeatureFilters] = useState([]);
+  const [typeFilters, setTypeFilters] = useState([]);
+  const [subscriptionsChecked, setSubscriptionsChecked] = useState(false);
 
-  const [discountedGamesPage, setDiscountedGamesPage] = useState(0);
-  const discountedGamesToShow = discountedGames.slice(
-    discountedGamesPage * itemsPerPage,
-    discountedGamesPage * itemsPerPage + itemsPerPage
-  );
+  const [sortOption, setSortOption] = useState('releaseDateDesc');
 
-  const [freeGamesPage, setFreeGamesPage] = useState(0);
-  const freeGamesToShow = freeGames.slice(
-    freeGamesPage * itemsPerPage,
-    freeGamesPage * itemsPerPage + itemsPerPage
-  );
+
+  function filterGames(list) {
+    return list.filter((game) => {
+      if (keywords.trim()) {
+        const kw = keywords.trim().toLowerCase();
+        if (
+          !game.title.toLowerCase().includes(kw) &&
+          !game.description.toLowerCase().includes(kw)
+        ) {
+          return false;
+        }
+      }
+      if (eventsChecked && !game.subtitle.toLowerCase().includes('event')) {
+        return false;
+      }
+      if (priceFilters.length > 0) {
+        const p = parsePrice(game.price);
+        let matchPrice = false;
+        for (const pf of priceFilters) {
+          if (pf === 'free' && p === 0) matchPrice = true;
+          if (pf === '0-100' && p > 0 && p <= 100) matchPrice = true;
+          if (pf === '100-200' && p >= 100 && p <= 200) matchPrice = true;
+        }
+        if (!matchPrice) return false;
+      }
+      if (genreFilters.length > 0) {
+        if (!genreFilters.some(filter => game.categories.includes(filter))) {
+          return false;
+        }
+      }
+      if (featureFilters.length > 0) {
+        if (!featureFilters.some(filter => game.features.includes(filter))) {
+          return false;
+        }
+      }
+      if (typeFilters.length > 0) {
+        if (!typeFilters.includes(game.type)) {
+          return false;
+        }
+      }
+      if (subscriptionsChecked) {
+        const pub = game.publisher.toLowerCase();
+        if (!pub.includes('ea') && !pub.includes('ubisoft')) {
+          return false;
+        }
+      }
+      return true;
+    });
+  }
+
+
+  function sortGames(list) {
+    const sorted = [...list];
+    sorted.sort((a, b) => {
+      switch (sortOption) {
+        case 'releaseDateDesc':
+          return new Date(b.releaseDate) - new Date(a.releaseDate);
+        case 'releaseDateAsc':
+          return new Date(a.releaseDate) - new Date(b.releaseDate);
+        case 'titleAsc':
+          return a.title.localeCompare(b.title);
+        case 'titleDesc':
+          return b.title.localeCompare(a.title);
+        default:
+          return 0;
+      }
+    });
+    return sorted;
+  }
+
+  const filtered = filterGames(games);
+  const sorted = sortGames(filtered);
+  const gamesToShow = sorted.slice(0, 40);
 
   return (
-    <main className="bg-neutral text-neutral-content">
-      <section className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex flex-col md:flex-row gap-8">
-          <div
-            className="relative flex-1 bg-cover bg-center rounded h-64 md:h-96"
-            style={{ backgroundImage: `url(${selectedGame.image})` }}
-          >
-            <div className="absolute inset-0 flex flex-col justify-center px-6 md:px-12">
-              <h2 className="text-3xl font-bold mb-2">{selectedGame.title}</h2>
-              <p className="text-sm mb-1">{selectedGame.subtitle}</p>
-              <p className="max-w-lg mb-2">{selectedGame.description}</p>
-              <p className="text-sm mb-4">{selectedGame.price}</p>
-              <div className="flex gap-2">
-                <button className="btn btn-primary">Kup teraz</button>
-                <button className="btn btn-outline">Dodaj do listy życzeń</button>
-                <Link to={`/game/${selectedGame.id}`} className="btn btn-outline">
-                  Szczegóły
-                </Link>
+    <main className="bg-neutral text-neutral-content min-h-screen">
+      <div className="flex flex-row">
+        <aside className="hidden lg:block w-64 bg-base-100 p-4">
+          <h2 className="text-xl font-bold mb-4">Filters</h2>
+          <div className="mb-2 collapse collapse-arrow">
+            <input type="checkbox" className="peer" defaultChecked />
+            <div className="collapse-title text-md font-medium">Keywords</div>
+            <div className="collapse-content">
+              <input
+                type="text"
+                className="input input-sm w-full"
+                placeholder="Search..."
+                value={keywords}
+                onChange={(e) => setKeywords(e.target.value)}
+              />
+            </div>
+          </div>
+          <div className="mb-2 collapse collapse-arrow">
+            <input type="checkbox" className="peer" defaultChecked />
+            <div className="collapse-title text-md font-medium">Events</div>
+            <div className="collapse-content">
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={eventsChecked}
+                  onChange={(e) => setEventsChecked(e.target.checked)}
+                />
+                <span>Show Events</span>
+              </label>
+            </div>
+          </div>
+          <div className="mb-2 collapse collapse-arrow">
+            <input type="checkbox" className="peer" defaultChecked />
+            <div className="collapse-title text-md font-medium">Price</div>
+            <div className="collapse-content">
+              <label className="flex items-center gap-2 mb-1">
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={priceFilters.includes('free')}
+                  onChange={(e) => {
+                    const copy = [...priceFilters];
+                    if (e.target.checked) copy.push('free');
+                    else {
+                      const idx = copy.indexOf('free');
+                      if (idx > -1) copy.splice(idx, 1);
+                    }
+                    setPriceFilters(copy);
+                  }}
+                />
+                <span>Free</span>
+              </label>
+              <label className="flex items-center gap-2 mb-1">
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={priceFilters.includes('0-100')}
+                  onChange={(e) => {
+                    const copy = [...priceFilters];
+                    if (e.target.checked) copy.push('0-100');
+                    else {
+                      const idx = copy.indexOf('0-100');
+                      if (idx > -1) copy.splice(idx, 1);
+                    }
+                    setPriceFilters(copy);
+                  }}
+                />
+                <span>0 - 100 zł</span>
+              </label>
+              <label className="flex items-center gap-2 mb-1">
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={priceFilters.includes('100-200')}
+                  onChange={(e) => {
+                    const copy = [...priceFilters];
+                    if (e.target.checked) copy.push('100-200');
+                    else {
+                      const idx = copy.indexOf('100-200');
+                      if (idx > -1) copy.splice(idx, 1);
+                    }
+                    setPriceFilters(copy);
+                  }}
+                />
+                <span>100 - 200 zł</span>
+              </label>
+            </div>
+          </div>
+          <div className="mb-2 collapse collapse-arrow">
+            <input type="checkbox" className="peer" defaultChecked />
+            <div className="collapse-title text-md font-medium">Genre</div>
+            <div className="collapse-content">
+              <label className="flex items-center gap-2 mb-1">
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={genreFilters.includes('Action')}
+                  onChange={(e) => {
+                    const copy = [...genreFilters];
+                    if (e.target.checked) copy.push('Action');
+                    else {
+                      const idx = copy.indexOf('Action');
+                      if (idx > -1) copy.splice(idx, 1);
+                    }
+                    setGenreFilters(copy);
+                  }}
+                />
+                <span>Action</span>
+              </label>
+              <label className="flex items-center gap-2 mb-1">
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={genreFilters.includes('Adventure')}
+                  onChange={(e) => {
+                    const copy = [...genreFilters];
+                    if (e.target.checked) copy.push('Adventure');
+                    else {
+                      const idx = copy.indexOf('Adventure');
+                      if (idx > -1) copy.splice(idx, 1);
+                    }
+                    setGenreFilters(copy);
+                  }}
+                />
+                <span>Adventure</span>
+              </label>
+              <label className="flex items-center gap-2 mb-1">
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={genreFilters.includes('RPG')}
+                  onChange={(e) => {
+                    const copy = [...genreFilters];
+                    if (e.target.checked) copy.push('RPG');
+                    else {
+                      const idx = copy.indexOf('RPG');
+                      if (idx > -1) copy.splice(idx, 1);
+                    }
+                    setGenreFilters(copy);
+                  }}
+                />
+                <span>RPG</span>
+              </label>
+            </div>
+          </div>
+          <div className="mb-2 collapse collapse-arrow">
+            <input type="checkbox" className="peer" defaultChecked />
+            <div className="collapse-title text-md font-medium">Features</div>
+            <div className="collapse-content">
+              <label className="flex items-center gap-2 mb-1">
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={featureFilters.includes('Multiplayer')}
+                  onChange={(e) => {
+                    const copy = [...featureFilters];
+                    if (e.target.checked) copy.push('Multiplayer');
+                    else {
+                      const idx = copy.indexOf('Multiplayer');
+                      if (idx > -1) copy.splice(idx, 1);
+                    }
+                    setFeatureFilters(copy);
+                  }}
+                />
+                <span>Multiplayer</span>
+              </label>
+              <label className="flex items-center gap-2 mb-1">
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={featureFilters.includes('Co-op')}
+                  onChange={(e) => {
+                    const copy = [...featureFilters];
+                    if (e.target.checked) copy.push('Co-op');
+                    else {
+                      const idx = copy.indexOf('Co-op');
+                      if (idx > -1) copy.splice(idx, 1);
+                    }
+                    setFeatureFilters(copy);
+                  }}
+                />
+                <span>Co-op</span>
+              </label>
+              <label className="flex items-center gap-2 mb-1">
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={featureFilters.includes('Controller Support')}
+                  onChange={(e) => {
+                    const copy = [...featureFilters];
+                    if (e.target.checked) copy.push('Controller Support');
+                    else {
+                      const idx = copy.indexOf('Controller Support');
+                      if (idx > -1) copy.splice(idx, 1);
+                    }
+                    setFeatureFilters(copy);
+                  }}
+                />
+                <span>Controller Support</span>
+              </label>
+            </div>
+          </div>
+          <div className="mb-2 collapse collapse-arrow">
+            <input type="checkbox" className="peer" defaultChecked />
+            <div className="collapse-title text-md font-medium">Types</div>
+            <div className="collapse-content">
+              <label className="flex items-center gap-2 mb-1">
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={typeFilters.includes('Game')}
+                  onChange={(e) => {
+                    const copy = [...typeFilters];
+                    if (e.target.checked) copy.push('Game');
+                    else {
+                      const idx = copy.indexOf('Game');
+                      if (idx > -1) copy.splice(idx, 1);
+                    }
+                    setTypeFilters(copy);
+                  }}
+                />
+                <span>Game</span>
+              </label>
+              <label className="flex items-center gap-2 mb-1">
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={typeFilters.includes('Game Add-on')}
+                  onChange={(e) => {
+                    const copy = [...typeFilters];
+                    if (e.target.checked) copy.push('Game Add-on');
+                    else {
+                      const idx = copy.indexOf('Game Add-on');
+                      if (idx > -1) copy.splice(idx, 1);
+                    }
+                    setTypeFilters(copy);
+                  }}
+                />
+                <span>Game Add-on</span>
+              </label>
+              <label className="flex items-center gap-2 mb-1">
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={typeFilters.includes('Game Bundle')}
+                  onChange={(e) => {
+                    const copy = [...typeFilters];
+                    if (e.target.checked) copy.push('Game Bundle');
+                    else {
+                      const idx = copy.indexOf('Game Bundle');
+                      if (idx > -1) copy.splice(idx, 1);
+                    }
+                    setTypeFilters(copy);
+                  }}
+                />
+                <span>Game Bundle</span>
+              </label>
+              <label className="flex items-center gap-2 mb-1">
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={typeFilters.includes('Game Demo')}
+                  onChange={(e) => {
+                    const copy = [...typeFilters];
+                    if (e.target.checked) copy.push('Game Demo');
+                    else {
+                      const idx = copy.indexOf('Game Demo');
+                      if (idx > -1) copy.splice(idx, 1);
+                    }
+                    setTypeFilters(copy);
+                  }}
+                />
+                <span>Game Demo</span>
+              </label>
+            </div>
+          </div>
+          <div className="mb-2 collapse collapse-arrow">
+            <input type="checkbox" className="peer" defaultChecked />
+            <div className="collapse-title text-md font-medium">Subscriptions</div>
+            <div className="collapse-content">
+              <label className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  className="checkbox"
+                  checked={subscriptionsChecked}
+                  onChange={(e) => setSubscriptionsChecked(e.target.checked)}
+                />
+                <span>EA Play / Ubisoft+</span>
+              </label>
+            </div>
+          </div>
+        </aside>
+
+        <div className="flex-1 p-4">
+          <div className="flex items-center justify-between mb-4">
+            <div className="text-xl font-semibold">Browse Games</div>
+            <div className="flex items-center gap-2 text-sm">
+              <span>Show:</span>
+              <div className="dropdown dropdown-end">
+                <label
+                  tabIndex={0}
+                  className="btn btn-ghost normal-case flex items-center gap-1"
+                >
+                  {sortOption === 'releaseDateDesc' && 'New Release'}
+                  {sortOption === 'releaseDateAsc' && 'Old Release'}
+                  {sortOption === 'titleAsc' && 'A-Z'}
+                  {sortOption === 'titleDesc' && 'Z-A'}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </label>
+                <ul className="dropdown-content menu p-2 shadow bg-base-100 rounded w-52">
+                  <li>
+                    <button onClick={() => setSortOption('releaseDateDesc')}>
+                      New Release
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => setSortOption('releaseDateAsc')}>
+                      Old Release
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => setSortOption('titleAsc')}>
+                      Alphabetical (A-Z)
+                    </button>
+                  </li>
+                  <li>
+                    <button onClick={() => setSortOption('titleDesc')}>
+                      Alphabetical (Z-A)
+                    </button>
+                  </li>
+                </ul>
               </div>
             </div>
           </div>
 
-          <div className="w-full md:w-1/3 flex flex-col gap-2">
-            {games.map((game) => (
-              <div
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
+            {gamesToShow.map((game) => (
+              <Link
                 key={game.id}
-                onClick={() => setSelectedGame(game)}
-                className={`flex items-center gap-2 p-2 rounded cursor-pointer
-                  hover:bg-base-200 transition-colors
-                  ${selectedGame.id === game.id ? 'bg-base-200' : ''}`}
+                to={`/game/${game.id}`}
+                className="group block bg-base-100 rounded overflow-hidden shadow-lg hover:shadow-xl transition-shadow"
               >
-                <img
-                  src={game.thumbnail}
-                  alt={game.title}
-                  className="w-16 h-16 object-cover rounded"
-                />
-                <div className="flex flex-col">
-                  <span className="font-medium">{game.title}</span>
-                  <span className="text-sm text-gray-400">{game.subtitle}</span>
+              <div
+  className="relative h-48 w-full bg-contain bg-center bg-no-repeat"
+  style={{ backgroundImage: `url(${game.image})` }}
+>
                 </div>
-                <Link to={`/game/${game.id}`} className="btn btn-xs btn-outline ml-auto">
-                  Szczegóły
-                </Link>
-              </div>
+                <div className="p-4">
+                  <h2 className="text-lg font-bold group-hover:underline">
+                    {game.title}
+                  </h2>
+                  <p className="text-sm text-gray-400">{game.publisher}</p>
+                  <p className="text-sm mt-1">{game.price}</p>
+                </div>
+              </Link>
             ))}
           </div>
         </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 py-8">
-        <h2 className="text-2xl font-bold mb-4">Odkryj nowości</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {newGamesToShow.map((game) => (
-            <div key={game.id} className="card bg-base-100 shadow-xl">
-              <figure className="relative w-full h-32 overflow-hidden">
-                <img
-                  src={game.image}
-                  alt={game.title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </figure>
-              <div className="card-body p-4">
-                <p className="text-sm text-gray-400">Gra podstawowa</p>
-                <h3 className="text-lg font-bold">{game.title}</h3>
-                <p className="text-sm">{game.price}</p>
-                <div className="card-actions justify-end mt-2">
-                  <Link to={`/game/${game.id}`} className="btn btn-sm btn-outline">
-                    Szczegóły
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="flex justify-end gap-2 mt-4">
-          {newGamesPage > 0 && (
-            <button
-              className="btn btn-sm btn-outline"
-              onClick={() => setNewGamesPage(newGamesPage - 1)}
-            >
-              Poprzednie
-            </button>
-          )}
-          {(newGamesPage + 1) * itemsPerPage < newGames.length && (
-            <button
-              className="btn btn-sm btn-outline"
-              onClick={() => setNewGamesPage(newGamesPage + 1)}
-            >
-              Następne
-            </button>
-          )}
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 py-8">
-        <h2 className="text-2xl font-bold mb-4">Wyróżnione zniżki</h2>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {discountedGamesToShow.map((game) => (
-            <div key={game.id} className="relative card bg-base-100 shadow-xl">
-              <div className="absolute top-2 left-2 badge badge-error">
-                {game.discount}
-              </div>
-              <figure className="relative w-full h-32 overflow-hidden">
-                <img
-                  src={game.image}
-                  alt={game.title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </figure>
-              <div className="card-body p-4">
-                <p className="text-sm text-gray-400">{game.subtitle}</p>
-                <h3 className="text-lg font-bold">{game.title}</h3>
-                <div className="flex items-baseline gap-2 mt-1">
-                  <span className="line-through text-gray-500 text-sm">
-                    {game.oldPrice}
-                  </span>
-                  <span className="font-semibold">{game.newPrice}</span>
-                </div>
-                <div className="card-actions justify-end mt-2">
-                  <Link to={`/game/${game.id}`} className="btn btn-sm btn-outline">
-                    Szczegóły
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="flex justify-end gap-2 mt-4">
-          {discountedGamesPage > 0 && (
-            <button
-              className="btn btn-sm btn-outline"
-              onClick={() => setDiscountedGamesPage(discountedGamesPage - 1)}
-            >
-              Poprzednie
-            </button>
-          )}
-          {(discountedGamesPage + 1) * itemsPerPage < discountedGames.length && (
-            <button
-              className="btn btn-sm btn-outline"
-              onClick={() => setDiscountedGamesPage(discountedGamesPage + 1)}
-            >
-              Następne
-            </button>
-          )}
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 py-8">
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-2xl font-bold">Bezpłatne gry</h2>
-          <button className="btn btn-outline btn-sm">Zobacz więcej</button>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-          {freeGamesToShow.map((game) => (
-            <div key={game.id} className="card bg-base-100 shadow-xl">
-              <figure className="relative w-full h-32 overflow-hidden">
-                <img
-                  src={game.image}
-                  alt={game.title}
-                  className="absolute inset-0 w-full h-full object-cover"
-                />
-              </figure>
-              <div className="card-body p-4">
-                <h3 className="text-lg font-bold">{game.title}</h3>
-                <p className="text-sm text-gray-400">{game.subtitle}</p>
-                <div className="card-actions justify-end mt-2">
-                  <Link to={`/game/${game.id}`} className="btn btn-sm btn-outline">
-                    Szczegóły
-                  </Link>
-                </div>
-              </div>
-            </div>
-          ))}
-        </div>
-        <div className="flex justify-end gap-2 mt-4">
-          {freeGamesPage > 0 && (
-            <button
-              className="btn btn-sm btn-outline"
-              onClick={() => setFreeGamesPage(freeGamesPage - 1)}
-            >
-              Poprzednie
-            </button>
-          )}
-          {(freeGamesPage + 1) * itemsPerPage < freeGames.length && (
-            <button
-              className="btn btn-sm btn-outline"
-              onClick={() => setFreeGamesPage(freeGamesPage + 1)}
-            >
-              Następne
-            </button>
-          )}
-        </div>
-      </section>
-
-      <section className="max-w-7xl mx-auto px-4 py-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          <div>
-            <h2 className="text-xl font-bold mb-4">Bestsellery</h2>
-            <div className="flex flex-col gap-2">
-              {bestsellers.map((game) => (
-                <div
-                  key={game.id}
-                  className="flex items-center gap-2 p-2 rounded hover:bg-base-200 transition-colors"
-                >
-                  <img
-                    src={game.image}
-                    alt={game.title}
-                    className="w-12 h-12 object-cover rounded"
-                  />
-                  <div className="flex flex-col">
-                    <span className="font-medium">{game.title}</span>
-                    <span className="text-sm text-gray-400">{game.price}</span>
-                  </div>
-                  <Link to={`/game/${game.id}`} className="btn btn-xs btn-outline ml-auto">
-                    Szczegóły
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-bold mb-4">Najczęściej rozgrywane</h2>
-            <div className="flex flex-col gap-2">
-              {mostPlayed.map((game) => (
-                <div
-                  key={game.id}
-                  className="flex items-center gap-2 p-2 rounded hover:bg-base-200 transition-colors"
-                >
-                  <img
-                    src={game.image}
-                    alt={game.title}
-                    className="w-12 h-12 object-cover rounded"
-                  />
-                  <div className="flex flex-col">
-                    <span className="font-medium">{game.title}</span>
-                    <span className="text-sm text-gray-400">{game.price}</span>
-                  </div>
-                  <Link to={`/game/${game.id}`} className="btn btn-xs btn-outline ml-auto">
-                    Szczegóły
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <h2 className="text-xl font-bold mb-4">
-              Najbardziej oczekiwane
-            </h2>
-            <div className="flex flex-col gap-2">
-              {upcomingWishlist.map((game) => (
-                <div
-                  key={game.id}
-                  className="flex items-center gap-2 p-2 rounded hover:bg-base-200 transition-colors"
-                >
-                  <img
-                    src={game.image}
-                    alt={game.title}
-                    className="w-12 h-12 object-cover rounded"
-                  />
-                  <div className="flex flex-col">
-                    <span className="font-medium">{game.title}</span>
-                  </div>
-                  <Link to={`/game/${game.id}`} className="btn btn-xs btn-outline ml-auto">
-                    Szczegóły
-                  </Link>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      </div>
     </main>
   );
-};
+}
 
 export default GamesPage;
