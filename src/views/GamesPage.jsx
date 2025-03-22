@@ -1,4 +1,3 @@
-// src/views/GamesPage.jsx
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import {
@@ -14,24 +13,20 @@ import {
 const GamesPage = () => {
   const itemsPerPage = 5;
   
-  // Panel główny
   const [selectedGame, setSelectedGame] = useState(games[0]);
 
-  // Paginacja: Odkryj nowości
   const [newGamesPage, setNewGamesPage] = useState(0);
   const newGamesToShow = newGames.slice(
     newGamesPage * itemsPerPage,
     newGamesPage * itemsPerPage + itemsPerPage
   );
 
-  // Paginacja: Wyróżnione zniżki
   const [discountedGamesPage, setDiscountedGamesPage] = useState(0);
   const discountedGamesToShow = discountedGames.slice(
     discountedGamesPage * itemsPerPage,
     discountedGamesPage * itemsPerPage + itemsPerPage
   );
 
-  // Paginacja: Bezpłatne gry
   const [freeGamesPage, setFreeGamesPage] = useState(0);
   const freeGamesToShow = freeGames.slice(
     freeGamesPage * itemsPerPage,
@@ -40,10 +35,8 @@ const GamesPage = () => {
 
   return (
     <main className="bg-neutral text-neutral-content">
-      {/* 1. PANEL GŁÓWNY: baner z lewej i lista gier po prawej */}
       <section className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex flex-col md:flex-row gap-8">
-          {/* Baner – tło z ikoną gry */}
           <div
             className="relative flex-1 bg-cover bg-center rounded h-64 md:h-96"
             style={{ backgroundImage: `url(${selectedGame.image})` }}
@@ -64,7 +57,6 @@ const GamesPage = () => {
             </div>
           </div>
 
-          {/* Lista gier (miniatury) */}
           <div className="w-full md:w-1/3 flex flex-col gap-2">
             {games.map((game) => (
               <div
@@ -83,7 +75,6 @@ const GamesPage = () => {
                   <span className="font-medium">{game.title}</span>
                   <span className="text-sm text-gray-400">{game.subtitle}</span>
                 </div>
-                {/* Link do szczegółów danej gry */}
                 <Link to={`/game/${game.id}`} className="btn btn-xs btn-outline ml-auto">
                   Szczegóły
                 </Link>
@@ -93,7 +84,6 @@ const GamesPage = () => {
         </div>
       </section>
 
-      {/* 2. ODKRYJ NOWOŚCI (paginacja) */}
       <section className="max-w-7xl mx-auto px-4 py-8">
         <h2 className="text-2xl font-bold mb-4">Odkryj nowości</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -139,7 +129,6 @@ const GamesPage = () => {
         </div>
       </section>
 
-      {/* 3. WYRÓŻNIONE ZNIŻKI (paginacja) */}
       <section className="max-w-7xl mx-auto px-4 py-8">
         <h2 className="text-2xl font-bold mb-4">Wyróżnione zniżki</h2>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
@@ -193,7 +182,6 @@ const GamesPage = () => {
         </div>
       </section>
 
-      {/* 4. BEZPŁATNE GRY (paginacja) */}
       <section className="max-w-7xl mx-auto px-4 py-8">
         <div className="flex items-center justify-between mb-4">
           <h2 className="text-2xl font-bold">Bezpłatne gry</h2>
@@ -241,10 +229,8 @@ const GamesPage = () => {
         </div>
       </section>
 
-      {/* 5. TRZY KOLUMNY NA DOLE STRONY (pozostałe sekcje bez linków) */}
       <section className="max-w-7xl mx-auto px-4 py-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {/* Bestsellery */}
           <div>
             <h2 className="text-xl font-bold mb-4">Bestsellery</h2>
             <div className="flex flex-col gap-2">
@@ -270,7 +256,6 @@ const GamesPage = () => {
             </div>
           </div>
 
-          {/* Najczęściej rozgrywane */}
           <div>
             <h2 className="text-xl font-bold mb-4">Najczęściej rozgrywane</h2>
             <div className="flex flex-col gap-2">
@@ -296,7 +281,6 @@ const GamesPage = () => {
             </div>
           </div>
 
-          {/* Najczęściej dodawane do listy życzeń */}
           <div>
             <h2 className="text-xl font-bold mb-4">
               Najczęściej dodawane do listy życzeń nadchodzące tytuły

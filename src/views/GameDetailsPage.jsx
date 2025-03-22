@@ -1,4 +1,3 @@
-// src/views/GameDetailsPage.jsx
 import React from 'react';
 import { useParams } from 'react-router-dom';
 import { games } from '../data/gamesData';
@@ -17,7 +16,6 @@ const GameDetailsPage = () => {
 
   return (
     <main className="bg-neutral text-neutral-content">
-      {/* Baner tła z ikoną gry */}
       <section
         className="relative h-96 bg-cover bg-center"
         style={{ backgroundImage: `url(${game.image})` }}
@@ -29,7 +27,6 @@ const GameDetailsPage = () => {
         </div>
       </section>
 
-      {/* Sekcja z informacjami */}
       <section className="max-w-4xl mx-auto p-8">
         <h2 className="text-2xl font-bold mb-4">Opis</h2>
         <p className="mb-4">{game.description}</p>
