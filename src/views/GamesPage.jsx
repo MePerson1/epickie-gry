@@ -282,7 +282,7 @@ const GamesPage = () => {
 
           <div>
             <h2 className="text-xl font-bold mb-4">
-              Najczęściej dodawane do listy życzeń nadchodzące tytuły
+              Najbardziej oczekiwane
             </h2>
             <div className="flex flex-col gap-2">
               {upcomingWishlist.map((game) => (
