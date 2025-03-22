@@ -16,31 +16,116 @@ const GameDetailsPage = () => {
 
   return (
     <main className="bg-neutral text-neutral-content">
-      <section className="max-w-4xl mx-auto p-8">
-        <div className="card bg-base-100 shadow-sm">
-          <div
-            className="relative h-80 w-full bg-contain bg-center bg-no-repeat"
-            style={{ backgroundImage: `url(${game.image})` }}
-          ></div>
-          <div className="card-body text-center">
-            <h1 className="text-3xl font-bold">{game.title}</h1>
-            <p className="text-xl">{game.subtitle}</p>
+      <section className="max-w-6xl mx-auto p-4 lg:p-8">
+        <nav className="flex space-x-4 mb-4">
+          <button className="btn btn-ghost">Szczegóły</button>
+          <button className="btn btn-ghost">Add-Ons</button>
+        </nav>
+
+        <div className="flex flex-col lg:flex-row gap-8">
+          <div className="flex-1">
+            <div className="relative w-full pb-[56.25%] h-0">
+              <iframe
+                className="absolute top-0 left-0 w-full h-full"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                title="Example Trailer"
+                frameBorder="0"
+                allowFullScreen
+              />
+            </div>
+
+            <div className="flex space-x-2 mt-4 overflow-x-auto">
+              <img
+                src={game.image}
+                alt="Zrzut 1"
+                className="w-24 h-16 object-cover rounded"
+              />
+              <img
+                src={game.thumbnail}
+                alt="Zrzut 2"
+                className="w-24 h-16 object-cover rounded"
+              />
+            </div>
+          </div>
+
+          <div className="w-full lg:w-96 flex flex-col space-y-4">
+            <div>
+              <h1 className="text-3xl font-bold">{game.title}</h1>
+              <p className="text-lg text-gray-400">{game.subtitle}</p>
+              <div className="mt-2 flex items-center space-x-2">
+                <span className="badge badge-error">PEGI 18</span>
+                <span className="text-sm text-gray-500">
+                  Jakies tagi gry                
+                  </span>
+              </div>
+            </div>
+
+            <div className="bg-base-100 p-4 rounded shadow-sm text-base-content">
+              <div className="flex items-center justify-between mb-2">
+                <span className="text-xl font-bold">Podstawowa gra</span>
+                <span className="text-xl font-bold">{game.price}</span>
+              </div>
+              <button className="btn btn-primary w-full mb-2">Kup teraz</button>
+              <button className="btn w-full mb-2">Dodaj do koszyka</button>
+              <button className="btn w-full mb-2">Dodaj do listy zyczen</button>
+              
+            </div>
+
+            <div className="space-y-2 text-sm">
+              <div>
+                <span className="font-semibold">Tworca</span>{' '}
+                <span>{game.publisher}</span>
+              </div>
+              <div>
+                <span className="font-semibold">Wydawca:</span>{' '}
+                <span>{game.publisher}</span>
+              </div>
+              <div>
+                <span className="font-semibold">Data premiery</span>{' '}
+                <span>{game.releaseDate}</span>
+              </div>
+              <div>
+                <span className="font-semibold">Platforma</span> PC
+              </div>
+            </div>
+
+            <button className="btn btn-outline w-full">
+              Wszystkie dodatki 
+            </button>
+            <button className="btn btn-ghost w-full">Udostępnij</button>
           </div>
         </div>
 
         <div className="mt-8">
-          <h2 className="text-2xl font-bold mb-4">Opis</h2>
-          <p className="mb-4">{game.description}</p>
+          <div className="flex flex-wrap gap-2 mb-4">
+            {game.categories?.map((cat) => (
+              <span key={cat} className="badge badge-outline">
+                {cat}
+              </span>
+            ))}
+          
+          </div>
 
-          <h3 className="text-xl font-semibold">Wydawca:</h3>
-          <p className="mb-4">{game.publisher}</p>
+          <h2 className="text-2xl font-bold mb-2">Lorem upsum</h2>
+          <p className="mb-4">
+          Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60.
 
-          <h3 className="text-xl font-semibold">Data premiery:</h3>
-          <p className="mb-4">{game.releaseDate}</p>
+          </p>
 
-          <h3 className="text-xl font-semibold">Cena:</h3>
-          <p className="mb-4">{game.price}</p>
+          <h2 className="text-2xl font-bold mb-2">Lorem impsum</h2>
+          <p className="mb-4">
+          Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60.
 
+          </p>
+
+          <h2 className="text-2xl font-bold mb-2">Lorem ipsum</h2>
+          <p className="mb-4">
+          Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60.
+
+          </p>
+        </div>
+
+        <div className="mt-8">
           <h3 className="text-xl font-semibold mb-2">Wymagania systemowe:</h3>
           <ul className="list-disc list-inside">
             <li>

@@ -15,7 +15,6 @@ function parsePrice(str) {
 }
 
 function GamesPage() {
-  // Filtry oraz sortowanie
   const [keywords, setKeywords] = useState('');
   const [eventsChecked, setEventsChecked] = useState(false);
   const [priceFilters, setPriceFilters] = useState([]);
@@ -25,7 +24,6 @@ function GamesPage() {
   const [subscriptionsChecked, setSubscriptionsChecked] = useState(false);
   const [sortOption, setSortOption] = useState('releaseDateDesc');
 
-  // Paginacja
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 40;
 
@@ -105,7 +103,6 @@ function GamesPage() {
     currentPage * itemsPerPage
   );
 
-  // Reset paginacji jeśli aktualna strona przekracza liczbę stron (np. po zmianie filtrów)
   if (currentPage > totalPages && totalPages > 0) {
     setCurrentPage(1);
   }
@@ -482,7 +479,6 @@ function GamesPage() {
             ))}
           </div>
 
-          {/* Paginacja */}
           {totalPages > 1 && (
             <div className="pagination mt-4 flex justify-center gap-2">
               {Array.from({ length: totalPages }, (_, index) => (
