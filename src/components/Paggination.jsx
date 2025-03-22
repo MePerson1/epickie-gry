@@ -1,14 +1,19 @@
 const Paggination = () =>
 {
     return(
-        <div class="join border rounded">
-            <button class="join-item btn">1</button>
-            <button class="join-item btn">2</button>
-            <button class="join-item btn">3</button>
-            <button class="join-item btn btn-disabled">...</button>
-            <button class="join-item btn">5</button>
-            <button class="join-item btn">6</button>
-            <button class="join-item btn">7</button>
+        <div class="join shadow-lg">
+            <button class="join-item btn ">{"<"}</button>
+            <input
+                className="join-item btn btn-square"
+                type="radio"
+                name="options"
+                aria-label="1"
+                checked="checked"
+                />
+            <input className="join-item btn btn-square" type="radio" name="options" aria-label="2" />
+            <input className="join-item btn btn-square" type="radio" name="options" aria-label="3" />
+            <input className="join-item btn btn-square" type="radio" name="options" aria-label="4" />
+            <button class="join-item btn ">{">"}</button>
         </div>
     );
 }

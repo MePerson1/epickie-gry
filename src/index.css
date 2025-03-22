@@ -17,13 +17,13 @@
   --color-secondary: #121212; /* Secondary background */
   --color-secondary-content: #ffffff;
 
-  --color-accent: #0078f2; /* Epic Games Blue */
+  --color-accent: #0061c7; /* Epic Games Blue */
   --color-accent-content: #ffffff;
 
   --color-neutral: #1b1b1b;
   --color-neutral-content: #ffffff;
 
-  --color-info: #0078f2; /* Blue */
+  --color-info: #3da9fc; /* Blue */
   --color-success: #28a745; /* Green */
   --color-warning: #ffc107; /* Yellow */
   --color-error: #dc3545; /* Red */
