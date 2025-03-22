@@ -103,7 +103,7 @@ function GamesPage() {
     <main className="bg-neutral text-neutral-content min-h-screen">
       <div className="flex flex-row">
         <aside className="hidden lg:block w-64 bg-base-100 p-4">
-          <h2 className="text-xl font-bold mb-4">Filters</h2>
+          <h2 className="text-xl font-bold mb-4">Filtry</h2>
           <div className="mb-2 collapse collapse-arrow">
             <input type="checkbox" className="peer" defaultChecked />
             <div className="collapse-title text-md font-medium">Keywords</div>
