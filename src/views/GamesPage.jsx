@@ -128,7 +128,7 @@ function GamesPage() {
                   checked={eventsChecked}
                   onChange={(e) => setEventsChecked(e.target.checked)}
                 />
-                <span>Show Events</span>
+                <span>Pokaz wydarzenia</span>
               </label>
             </div>
           </div>
@@ -151,7 +151,7 @@ function GamesPage() {
                     setPriceFilters(copy);
                   }}
                 />
-                <span>Free</span>
+                <span>Uczciwa cena</span>
               </label>
               <label className="flex items-center gap-2 mb-1">
                 <input
@@ -225,7 +225,7 @@ function GamesPage() {
                     setGenreFilters(copy);
                   }}
                 />
-                <span>Adventure</span>
+                <span>Przygodówka</span>
               </label>
               <label className="flex items-center gap-2 mb-1">
                 <input
@@ -299,7 +299,7 @@ function GamesPage() {
                     setFeatureFilters(copy);
                   }}
                 />
-                <span>Controller Support</span>
+                <span>Wsparcie kontrolera</span>
               </label>
             </div>
           </div>
@@ -322,7 +322,7 @@ function GamesPage() {
                     setTypeFilters(copy);
                   }}
                 />
-                <span>Game</span>
+                <span>Gra </span>
               </label>
               <label className="flex items-center gap-2 mb-1">
                 <input
@@ -339,7 +339,7 @@ function GamesPage() {
                     setTypeFilters(copy);
                   }}
                 />
-                <span>Game Add-on</span>
+                <span>Dodatek</span>
               </label>
               <label className="flex items-center gap-2 mb-1">
                 <input
@@ -356,7 +356,7 @@ function GamesPage() {
                     setTypeFilters(copy);
                   }}
                 />
-                <span>Game Bundle</span>
+                <span>Pakiet gier</span>
               </label>
               <label className="flex items-center gap-2 mb-1">
                 <input
@@ -373,7 +373,7 @@ function GamesPage() {
                     setTypeFilters(copy);
                   }}
                 />
-                <span>Game Demo</span>
+                <span>Demo gry</span>
               </label>
             </div>
           </div>
@@ -426,22 +426,21 @@ function GamesPage() {
                 <ul className="dropdown-content menu p-2 shadow bg-base-100 rounded w-52">
                   <li>
                     <button onClick={() => setSortOption('releaseDateDesc')}>
-                      New Release
-                    </button>
+Najnowsze                    </button>
                   </li>
                   <li>
                     <button onClick={() => setSortOption('releaseDateAsc')}>
-                      Old Release
+                      Najstarsze
                     </button>
                   </li>
                   <li>
                     <button onClick={() => setSortOption('titleAsc')}>
-                      Alphabetical (A-Z)
+                      Alfabetycznie (A-Z)
                     </button>
                   </li>
                   <li>
                     <button onClick={() => setSortOption('titleDesc')}>
-                      Alphabetical (Z-A)
+                      Alfabetycznie (Z-A)
                     </button>
                   </li>
                 </ul>
