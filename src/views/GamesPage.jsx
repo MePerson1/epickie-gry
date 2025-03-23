@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { games } from '../data/gamesData';
+import SortSelect from '../components/SortSelect';
 
 function parsePrice(str) {
   if (typeof str === 'string') {
@@ -405,7 +406,7 @@ function GamesPage() {
         <div className="flex-1 p-4">
           <div className="flex items-center justify-between mb-4">
             <div className="text-xl font-semibold">Wyszukiwarka</div>
-            <div className="flex items-center gap-2 text-sm">
+            {/* <div className="flex items-center gap-2 text-sm">
               <span>Sortuj</span>
               <div className="dropdown dropdown-end">
                 <label
@@ -454,7 +455,8 @@ function GamesPage() {
                   </li>
                 </ul>
               </div>
-            </div>
+            </div> */}
+            <SortSelect/>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">

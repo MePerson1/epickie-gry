@@ -16,12 +16,9 @@ const GameDetailsPage = () => {
 
   return (
     <main className="bg-neutral text-neutral-content">
+      
       <section className="max-w-6xl mx-auto p-4 lg:p-8">
-        <nav className="flex space-x-4 mb-4">
-          <button className="btn btn-ghost">Szczegóły</button>
-          <button className="btn btn-ghost">Add-Ons</button>
-        </nav>
-
+      <div className="text-xl font-semibold pb-4">Szczegóły</div>
         <div className="flex flex-col lg:flex-row gap-8">
           <div className="flex-1">
             <div className="relative w-full pb-[56.25%] h-0">

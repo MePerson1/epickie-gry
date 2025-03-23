@@ -72,16 +72,13 @@ const NavBar = () => {
               Aktualności
             </NavLink>
           </li>
-          <li>
-            <button className="btn btn-outline">Zmień motyw</button>
-          </li>
-          <li>
-            <button className="btn btn-outline">Zmień czcionkę</button>
-          </li>
+         
         </ul>
       </div>
       <div className="navbar-end">
-        <NavLink to="/login" className="btn">
+      <button className="btn">Zmień motyw</button>
+      <button className="btn">Zmień czcionkę</button>
+        <NavLink to="/login" className="btn btn-outline">
           Zaloguj
         </NavLink>
       </div>
