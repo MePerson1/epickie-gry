@@ -1,16 +1,19 @@
-const InputWithHint = ({ fieldName, typeOf, example, hint }) => {
+const InputWithHint = ({ fieldName, typeOf, example, hint, id }) => {
   return (
-    <div>
-      <fieldset class="fieldset">
-        <legend class="fieldset-legend font-bold">{fieldName}</legend>
+    <div className="text-left">
+      <label htmlFor={id} className="">
+        <span> {fieldName}</span>
+
         <input
-          class="input validator"
+          id={id}
+          className="input validator"
           type={typeOf}
           required
           placeholder={example}
         />
-        <div class="validator-hint">{hint}</div>
-      </fieldset>
+
+        <div className="validator-hint">{hint}</div>
+      </label>
     </div>
   );
 };
