@@ -1,29 +1,33 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { games } from '../data/gamesData';
-import SortSelect from '../components/SortSelect';
+import React, { useState } from "react";
+import { Link } from "react-router-dom";
+import { games } from "../data/gamesData";
+import SortSelect from "../components/SortSelect";
 
 function parsePrice(str) {
-  if (typeof str === 'string') {
+  if (typeof str === "string") {
     const lower = str.toLowerCase();
-    if (lower.includes('bezpłatne') || lower.includes('za darmo') || lower.includes('tba')) {
+    if (
+      lower.includes("bezpłatne") ||
+      lower.includes("za darmo") ||
+      lower.includes("tba")
+    ) {
       return 0;
     }
   }
-  const numericString = str.replace(/[^\d,\.]/g, '');
-  const normalized = numericString.replace(',', '.');
+  const numericString = str.replace(/[^\d,\.]/g, "");
+  const normalized = numericString.replace(",", ".");
   return parseFloat(normalized) || 0;
 }
 
 function GamesPage() {
-  const [keywords, setKeywords] = useState('');
+  const [keywords, setKeywords] = useState("");
   const [eventsChecked, setEventsChecked] = useState(false);
   const [priceFilters, setPriceFilters] = useState([]);
   const [genreFilters, setGenreFilters] = useState([]);
   const [featureFilters, setFeatureFilters] = useState([]);
   const [typeFilters, setTypeFilters] = useState([]);
   const [subscriptionsChecked, setSubscriptionsChecked] = useState(false);
-  const [sortOption, setSortOption] = useState('releaseDateDesc');
+  const [sortOption, setSortOption] = useState("releaseDateDesc");
 
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 40;
@@ -39,26 +43,26 @@ function GamesPage() {
           return false;
         }
       }
-      if (eventsChecked && !game.subtitle.toLowerCase().includes('event')) {
+      if (eventsChecked && !game.subtitle.toLowerCase().includes("event")) {
         return false;
       }
       if (priceFilters.length > 0) {
         const p = parsePrice(game.price);
         let matchPrice = false;
         for (const pf of priceFilters) {
-          if (pf === 'free' && p === 0) matchPrice = true;
-          if (pf === '0-100' && p > 0 && p <= 100) matchPrice = true;
-          if (pf === '100-200' && p >= 100 && p <= 200) matchPrice = true;
+          if (pf === "free" && p === 0) matchPrice = true;
+          if (pf === "0-100" && p > 0 && p <= 100) matchPrice = true;
+          if (pf === "100-200" && p >= 100 && p <= 200) matchPrice = true;
         }
         if (!matchPrice) return false;
       }
       if (genreFilters.length > 0) {
-        if (!genreFilters.some(filter => game.categories.includes(filter))) {
+        if (!genreFilters.some((filter) => game.categories.includes(filter))) {
           return false;
         }
       }
       if (featureFilters.length > 0) {
-        if (!featureFilters.some(filter => game.features.includes(filter))) {
+        if (!featureFilters.some((filter) => game.features.includes(filter))) {
           return false;
         }
       }
@@ -69,7 +73,7 @@ function GamesPage() {
       }
       if (subscriptionsChecked) {
         const pub = game.publisher.toLowerCase();
-        if (!pub.includes('ea') && !pub.includes('ubisoft')) {
+        if (!pub.includes("ea") && !pub.includes("ubisoft")) {
           return false;
         }
       }
@@ -81,13 +85,13 @@ function GamesPage() {
     const sorted = [...list];
     sorted.sort((a, b) => {
       switch (sortOption) {
-        case 'releaseDateDesc':
+        case "releaseDateDesc":
           return new Date(b.releaseDate) - new Date(a.releaseDate);
-        case 'releaseDateAsc':
+        case "releaseDateAsc":
           return new Date(a.releaseDate) - new Date(b.releaseDate);
-        case 'titleAsc':
+        case "titleAsc":
           return a.title.localeCompare(b.title);
-        case 'titleDesc':
+        case "titleDesc":
           return b.title.localeCompare(a.title);
         default:
           return 0;
@@ -109,7 +113,7 @@ function GamesPage() {
   }
 
   return (
-    <main className="bg-neutral text-neutral-content min-h-screen">
+    <main className="bg-primary text-neutral-content min-h-screen">
       <div className="flex flex-row">
         <aside className="hidden lg:block w-64 bg-base-100 p-4">
           <h2 className="text-xl font-bold mb-4">Filtry</h2>
@@ -149,12 +153,12 @@ function GamesPage() {
                 <input
                   type="checkbox"
                   className="checkbox"
-                  checked={priceFilters.includes('free')}
+                  checked={priceFilters.includes("free")}
                   onChange={(e) => {
                     const copy = [...priceFilters];
-                    if (e.target.checked) copy.push('free');
+                    if (e.target.checked) copy.push("free");
                     else {
-                      const idx = copy.indexOf('free');
+                      const idx = copy.indexOf("free");
                       if (idx > -1) copy.splice(idx, 1);
                     }
                     setPriceFilters(copy);
@@ -166,12 +170,12 @@ function GamesPage() {
                 <input
                   type="checkbox"
                   className="checkbox"
-                  checked={priceFilters.includes('0-100')}
+                  checked={priceFilters.includes("0-100")}
                   onChange={(e) => {
                     const copy = [...priceFilters];
-                    if (e.target.checked) copy.push('0-100');
+                    if (e.target.checked) copy.push("0-100");
                     else {
-                      const idx = copy.indexOf('0-100');
+                      const idx = copy.indexOf("0-100");
                       if (idx > -1) copy.splice(idx, 1);
                     }
                     setPriceFilters(copy);
@@ -183,12 +187,12 @@ function GamesPage() {
                 <input
                   type="checkbox"
                   className="checkbox"
-                  checked={priceFilters.includes('100-200')}
+                  checked={priceFilters.includes("100-200")}
                   onChange={(e) => {
                     const copy = [...priceFilters];
-                    if (e.target.checked) copy.push('100-200');
+                    if (e.target.checked) copy.push("100-200");
                     else {
-                      const idx = copy.indexOf('100-200');
+                      const idx = copy.indexOf("100-200");
                       if (idx > -1) copy.splice(idx, 1);
                     }
                     setPriceFilters(copy);
@@ -206,12 +210,12 @@ function GamesPage() {
                 <input
                   type="checkbox"
                   className="checkbox"
-                  checked={genreFilters.includes('Action')}
+                  checked={genreFilters.includes("Action")}
                   onChange={(e) => {
                     const copy = [...genreFilters];
-                    if (e.target.checked) copy.push('Action');
+                    if (e.target.checked) copy.push("Action");
                     else {
-                      const idx = copy.indexOf('Action');
+                      const idx = copy.indexOf("Action");
                       if (idx > -1) copy.splice(idx, 1);
                     }
                     setGenreFilters(copy);
@@ -223,12 +227,12 @@ function GamesPage() {
                 <input
                   type="checkbox"
                   className="checkbox"
-                  checked={genreFilters.includes('Adventure')}
+                  checked={genreFilters.includes("Adventure")}
                   onChange={(e) => {
                     const copy = [...genreFilters];
-                    if (e.target.checked) copy.push('Adventure');
+                    if (e.target.checked) copy.push("Adventure");
                     else {
-                      const idx = copy.indexOf('Adventure');
+                      const idx = copy.indexOf("Adventure");
                       if (idx > -1) copy.splice(idx, 1);
                     }
                     setGenreFilters(copy);
@@ -240,12 +244,12 @@ function GamesPage() {
                 <input
                   type="checkbox"
                   className="checkbox"
-                  checked={genreFilters.includes('RPG')}
+                  checked={genreFilters.includes("RPG")}
                   onChange={(e) => {
                     const copy = [...genreFilters];
-                    if (e.target.checked) copy.push('RPG');
+                    if (e.target.checked) copy.push("RPG");
                     else {
-                      const idx = copy.indexOf('RPG');
+                      const idx = copy.indexOf("RPG");
                       if (idx > -1) copy.splice(idx, 1);
                     }
                     setGenreFilters(copy);
@@ -263,12 +267,12 @@ function GamesPage() {
                 <input
                   type="checkbox"
                   className="checkbox"
-                  checked={featureFilters.includes('Multiplayer')}
+                  checked={featureFilters.includes("Multiplayer")}
                   onChange={(e) => {
                     const copy = [...featureFilters];
-                    if (e.target.checked) copy.push('Multiplayer');
+                    if (e.target.checked) copy.push("Multiplayer");
                     else {
-                      const idx = copy.indexOf('Multiplayer');
+                      const idx = copy.indexOf("Multiplayer");
                       if (idx > -1) copy.splice(idx, 1);
                     }
                     setFeatureFilters(copy);
@@ -280,12 +284,12 @@ function GamesPage() {
                 <input
                   type="checkbox"
                   className="checkbox"
-                  checked={featureFilters.includes('Co-op')}
+                  checked={featureFilters.includes("Co-op")}
                   onChange={(e) => {
                     const copy = [...featureFilters];
-                    if (e.target.checked) copy.push('Co-op');
+                    if (e.target.checked) copy.push("Co-op");
                     else {
-                      const idx = copy.indexOf('Co-op');
+                      const idx = copy.indexOf("Co-op");
                       if (idx > -1) copy.splice(idx, 1);
                     }
                     setFeatureFilters(copy);
@@ -297,12 +301,12 @@ function GamesPage() {
                 <input
                   type="checkbox"
                   className="checkbox"
-                  checked={featureFilters.includes('Controller Support')}
+                  checked={featureFilters.includes("Controller Support")}
                   onChange={(e) => {
                     const copy = [...featureFilters];
-                    if (e.target.checked) copy.push('Controller Support');
+                    if (e.target.checked) copy.push("Controller Support");
                     else {
-                      const idx = copy.indexOf('Controller Support');
+                      const idx = copy.indexOf("Controller Support");
                       if (idx > -1) copy.splice(idx, 1);
                     }
                     setFeatureFilters(copy);
@@ -320,12 +324,12 @@ function GamesPage() {
                 <input
                   type="checkbox"
                   className="checkbox"
-                  checked={typeFilters.includes('Game')}
+                  checked={typeFilters.includes("Game")}
                   onChange={(e) => {
                     const copy = [...typeFilters];
-                    if (e.target.checked) copy.push('Game');
+                    if (e.target.checked) copy.push("Game");
                     else {
-                      const idx = copy.indexOf('Game');
+                      const idx = copy.indexOf("Game");
                       if (idx > -1) copy.splice(idx, 1);
                     }
                     setTypeFilters(copy);
@@ -337,12 +341,12 @@ function GamesPage() {
                 <input
                   type="checkbox"
                   className="checkbox"
-                  checked={typeFilters.includes('Game Add-on')}
+                  checked={typeFilters.includes("Game Add-on")}
                   onChange={(e) => {
                     const copy = [...typeFilters];
-                    if (e.target.checked) copy.push('Game Add-on');
+                    if (e.target.checked) copy.push("Game Add-on");
                     else {
-                      const idx = copy.indexOf('Game Add-on');
+                      const idx = copy.indexOf("Game Add-on");
                       if (idx > -1) copy.splice(idx, 1);
                     }
                     setTypeFilters(copy);
@@ -354,12 +358,12 @@ function GamesPage() {
                 <input
                   type="checkbox"
                   className="checkbox"
-                  checked={typeFilters.includes('Game Bundle')}
+                  checked={typeFilters.includes("Game Bundle")}
                   onChange={(e) => {
                     const copy = [...typeFilters];
-                    if (e.target.checked) copy.push('Game Bundle');
+                    if (e.target.checked) copy.push("Game Bundle");
                     else {
-                      const idx = copy.indexOf('Game Bundle');
+                      const idx = copy.indexOf("Game Bundle");
                       if (idx > -1) copy.splice(idx, 1);
                     }
                     setTypeFilters(copy);
@@ -371,12 +375,12 @@ function GamesPage() {
                 <input
                   type="checkbox"
                   className="checkbox"
-                  checked={typeFilters.includes('Game Demo')}
+                  checked={typeFilters.includes("Game Demo")}
                   onChange={(e) => {
                     const copy = [...typeFilters];
-                    if (e.target.checked) copy.push('Game Demo');
+                    if (e.target.checked) copy.push("Game Demo");
                     else {
-                      const idx = copy.indexOf('Game Demo');
+                      const idx = copy.indexOf("Game Demo");
                       if (idx > -1) copy.splice(idx, 1);
                     }
                     setTypeFilters(copy);
@@ -388,7 +392,9 @@ function GamesPage() {
           </div>
           <div className="mb-2 collapse collapse-arrow">
             <input type="checkbox" className="peer" defaultChecked />
-            <div className="collapse-title text-md font-medium">Subscriptions</div>
+            <div className="collapse-title text-md font-medium">
+              Subscriptions
+            </div>
             <div className="collapse-content">
               <label className="flex items-center gap-2">
                 <input
@@ -456,7 +462,7 @@ function GamesPage() {
                 </ul>
               </div>
             </div> */}
-            <SortSelect/>
+            <SortSelect />
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
@@ -487,7 +493,9 @@ function GamesPage() {
                 <button
                   key={index}
                   onClick={() => setCurrentPage(index + 1)}
-                  className={`btn ${currentPage === index + 1 ? 'btn-active' : ''}`}
+                  className={`btn ${
+                    currentPage === index + 1 ? "btn-active" : ""
+                  }`}
                 >
                   {index + 1}
                 </button>
