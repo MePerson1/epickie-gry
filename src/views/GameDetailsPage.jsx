@@ -56,11 +56,7 @@ const GameDetailsPage = () => {
                     {feature}
                   </span>
                 ))}
-                {game.categories?.map((category) => (
-                  <span key={category} className="badge badge-outline">
-                    {category}
-                  </span>
-                ))}
+                
               </div>
             </div>
 
