@@ -72,14 +72,50 @@ const NavBar = () => {
               Aktualności
             </NavLink>
           </li>
-         
         </ul>
       </div>
       <div className="navbar-end">
-      <button className="btn">Zmień motyw</button>
-      <button className="btn">Zmień czcionkę</button>
-        <NavLink to="/login" className="btn btn-outline">
-          Zaloguj
+        <button className="btn">
+          {" "}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M10 2v2"></path>
+            <path d="M14 2v4"></path>
+            <path d="M17 2a1 1 0 0 1 1 1v9H6V3a1 1 0 0 1 1-1z"></path>
+            <path d="M6 12a1 1 0 0 0-1 1v1a2 2 0 0 0 2 2h2a1 1 0 0 1 1 1v2.9a2 2 0 1 0 4 0V17a1 1 0 0 1 1-1h2a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1"></path>
+          </svg>
+          Zmień motyw
+        </button>
+        <button className="btn">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="30"
+            height="30"
+            viewBox="0 0 24 24"
+            fill="none"
+            stroke="white"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <path d="M21 14h-5"></path>
+            <path d="M16 16v-3.5a2.5 2.5 0 0 1 5 0V16"></path>
+            <path d="M4.5 13h6"></path>
+            <path d="m3 16 4.5-9 4.5 9"></path>
+          </svg>
+          Zmień czcionkę
+        </button>
+        <NavLink to="/login" className="btn btn-accent">
+          Zaloguj się
         </NavLink>
       </div>
     </nav>

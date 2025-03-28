@@ -2,9 +2,8 @@ import InputWithHint from "../components/InputWithHint";
 
 const LoginRegisterPage = () => {
   return (
-    <div className="flex justify-center items-center min-h-screen ">
+    <div className="flex justify-center items-center min-h-screen bg-primary">
       <div className="flex flex-col md:flex-row items-center gap-8  p-5 rounded-2xl ">
-        
         <div className="bg-base-200 border border-primary rounded-2xl p-6 w-80 text-center shadow-lg">
           <h2 className="text-2xl font-bold mb-4">Zaloguj się</h2>
           <InputWithHint
@@ -28,11 +27,11 @@ const LoginRegisterPage = () => {
               Nie pamiętasz hasła?
             </a>
           </div>
-          
+
           <button className="btn btn-accent w-full mt-3">Zaloguj</button>
         </div>
 
-        <div className="text-xl font-bold text-gray-500">Lub</div>
+        <div className="text-xl font-bold ">Lub</div>
 
         <div className="bg-base-200 border border-primary rounded-2xl p-6 w-80 text-center shadow-lg">
           <h2 className="text-2xl font-bold mb-4">Zarejestruj się</h2>
