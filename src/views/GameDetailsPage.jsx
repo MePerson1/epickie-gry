@@ -51,9 +51,16 @@ const GameDetailsPage = () => {
               <p className="text-lg text-gray-400">{game.subtitle}</p>
               <div className="mt-2 flex items-center space-x-2">
                 <span className="badge badge-error">PEGI 18</span>
-                <span className="text-sm text-gray-500">
-                  Jakies tagi gry                
+                {game.features?.map((feature) => (
+                  <span key={feature} className="badge badge-outline">
+                    {feature}
                   </span>
+                ))}
+                {game.categories?.map((category) => (
+                  <span key={category} className="badge badge-outline">
+                    {category}
+                  </span>
+                ))}
               </div>
             </div>
 
@@ -103,23 +110,11 @@ const GameDetailsPage = () => {
           
           </div>
 
-          <h2 className="text-2xl font-bold mb-2">Lorem upsum</h2>
+          <h2 className="text-2xl font-bold mb-2">Opis gry</h2>
           <p className="mb-4">
-          Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60.
-
+              {game.description}
           </p>
 
-          <h2 className="text-2xl font-bold mb-2">Lorem impsum</h2>
-          <p className="mb-4">
-          Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60.
-
-          </p>
-
-          <h2 className="text-2xl font-bold mb-2">Lorem ipsum</h2>
-          <p className="mb-4">
-          Lorem Ipsum jest tekstem stosowanym jako przykładowy wypełniacz w przemyśle poligraficznym. Został po raz pierwszy użyty w XV w. przez nieznanego drukarza do wypełnienia tekstem próbnej książki. Pięć wieków później zaczął być używany przemyśle elektronicznym, pozostając praktycznie niezmienionym. Spopularyzował się w latach 60.
-
-          </p>
         </div>
 
         <div className="mt-8">

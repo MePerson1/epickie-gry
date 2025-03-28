@@ -113,13 +113,12 @@ function GamesPage() {
             <div className="collapse-title text-md font-medium">Wyszukiwarka</div>
             <div className="collapse-content">
               <label htmlFor="keywords" className="block text-sm font-medium text-white">
-                 Wpisz słowa kluczowe
+                 Wpisz szukana frazę
               </label>
                 <input
                   id="keywords"
                   type="text"
                   className="input input-sm w-full"
-                  placeholder="Search..."
                   value={keywords}
                   onChange={(e) => setKeywords(e.target.value)}
                 />
@@ -384,57 +383,19 @@ function GamesPage() {
         <div className="flex-1 p-4">
           <div className="flex items-center justify-between mb-4">
             <div className="text-xl font-semibold">Wyszukiwarka</div>
-            {/* <div className="flex items-center gap-2 text-sm">
-              <span>Sortuj</span>
-              <div className="dropdown dropdown-end">
-                <label
-                  tabIndex={0}
-                  className="btn btn-ghost normal-case flex items-center gap-1"
-                >
-                  {sortOption === 'releaseDateDesc' && 'Najnowsze'}
-                  {sortOption === 'releaseDateAsc' && 'Najstarsze'}
-                  {sortOption === 'titleAsc' && 'A-Z'}
-                  {sortOption === 'titleDesc' && 'Z-A'}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    className="h-4 w-4"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 9l-7 7-7-7"
-                    />
-                  </svg>
-                </label>
-                <ul className="dropdown-content menu p-2 shadow bg-base-100 rounded w-52">
-                  <li>
-                    <button onClick={() => setSortOption('releaseDateDesc')}>
-                      Najnowsze
-                    </button>
-                  </li>
-                  <li>
-                    <button onClick={() => setSortOption('releaseDateAsc')}>
-                      Najstarsze
-                    </button>
-                  </li>
-                  <li>
-                    <button onClick={() => setSortOption('titleAsc')}>
-                      Alfabetycznie (A-Z)
-                    </button>
-                  </li>
-                  <li>
-                    <button onClick={() => setSortOption('titleDesc')}>
-                      Alfabetycznie (Z-A)
-                    </button>
-                  </li>
-                </ul>
-              </div>
-            </div> */}
-            <SortSelect />
+            <label className="select select-white bg-secondary">
+              <span className="label text-white">Sortuj</span>
+              <select
+                className="select font-semibold"
+                value={sortOption}
+                onChange={(e) => setSortOption(e.target.value)}
+              >
+                <option value="releaseDateDesc">Po dacie najnowsze</option>
+                <option value="releaseDateAsc">Po dacie najstarsze</option>
+                <option value="titleAsc">Tytuł od A do Z</option>
+                <option value="titleDesc">Tytuł od Z do A</option>
+              </select>
+            </label>
           </div>
 
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
