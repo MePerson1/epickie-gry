@@ -50,7 +50,7 @@ const GameDetailsPage = () => {
               <h1 className="text-3xl font-bold">{game.title}</h1>
               <p className="text-lg text-gray-400">{game.subtitle}</p>
               <div className="mt-2 flex items-center space-x-2">
-                <span className="badge badge-error">PEGI 18</span>
+          
                 {game.features?.map((feature) => (
                   <span key={feature} className="badge badge-outline">
                     {feature}
