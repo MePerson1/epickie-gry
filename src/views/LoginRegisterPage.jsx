@@ -2,10 +2,10 @@ import InputWithHint from "../components/InputWithHint";
 
 const LoginRegisterPage = () => {
   return (
-    <div className="flex justify-center items-center min-h-screen bg-primary">
-      <div className="flex flex-col md:flex-row items-center gap-8  p-5 rounded-2xl ">
-        <div className="bg-base-200 border border-primary rounded-2xl p-6 w-80 text-center shadow-lg">
-          <h2 className="text-2xl font-bold mb-4">Zaloguj się</h2>
+    <div className="grid place-content-center min-h-screen bg-primary">
+      <div className="flex flex-col md:flex-row items-center gap-8 rounded-2xl w-max ">
+        <div className="grid bg-base-200 border border-primary rounded-2xl w-10/12 text-center shadow-lg  place-content-center p-20">
+          <h2 className="text-2xl font-bold mb-4 pb-10">Zaloguj się</h2>
           <InputWithHint
             fieldName="Login / Email"
             typeOf="text"
@@ -33,8 +33,8 @@ const LoginRegisterPage = () => {
 
         <div className="text-xl font-bold ">Lub</div>
 
-        <div className="bg-base-200 border border-primary rounded-2xl p-6 w-80 text-center shadow-lg">
-          <h2 className="text-2xl font-bold mb-4">Zarejestruj się</h2>
+        <div className="grid bg-base-200 border border-primary rounded-2xl w-10/12 text-center shadow-lg  place-content-center p-20">
+          <h2 className="text-2xl font-bold mb-4 pb-10">Zarejestruj się</h2>
           <InputWithHint
             fieldName="Email"
             typeOf="email"
