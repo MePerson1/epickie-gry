@@ -21,12 +21,10 @@ function parsePrice(str) {
 
 function GamesPage() {
   const [keywords, setKeywords] = useState("");
-  const [eventsChecked, setEventsChecked] = useState(false);
   const [priceFilters, setPriceFilters] = useState([]);
   const [genreFilters, setGenreFilters] = useState([]);
   const [featureFilters, setFeatureFilters] = useState([]);
   const [typeFilters, setTypeFilters] = useState([]);
-  const [subscriptionsChecked, setSubscriptionsChecked] = useState(false);
   const [sortOption, setSortOption] = useState("releaseDateDesc");
 
   const [currentPage, setCurrentPage] = useState(1);
@@ -43,9 +41,7 @@ function GamesPage() {
           return false;
         }
       }
-      if (eventsChecked && !game.subtitle.toLowerCase().includes("event")) {
-        return false;
-      }
+    
       if (priceFilters.length > 0) {
         const p = parsePrice(game.price);
         let matchPrice = false;
@@ -71,12 +67,7 @@ function GamesPage() {
           return false;
         }
       }
-      if (subscriptionsChecked) {
-        const pub = game.publisher.toLowerCase();
-        if (!pub.includes("ea") && !pub.includes("ubisoft")) {
-          return false;
-        }
-      }
+      
       return true;
     });
   }
@@ -118,35 +109,32 @@ function GamesPage() {
         <aside className="hidden lg:block w-64 bg-base-100 p-4">
           <h2 className="text-xl font-bold mb-4">Filtry</h2>
           <div className="mb-2 collapse collapse-arrow">
-            <input type="checkbox" className="peer" defaultChecked />
-            <div className="collapse-title text-md font-medium">Keywords</div>
+            <input type="checkbox" aria-label="Rozwiń sekcję Wyszukiwarka" className="peer" defaultChecked />
+            <div className="collapse-title text-md font-medium">Wyszukiwarka</div>
             <div className="collapse-content">
-              <input
-                type="text"
-                className="input input-sm w-full"
-                placeholder="Search..."
-                value={keywords}
-                onChange={(e) => setKeywords(e.target.value)}
-              />
-            </div>
-          </div>
-          <div className="mb-2 collapse collapse-arrow">
-            <input type="checkbox" className="peer" defaultChecked />
-            <div className="collapse-title text-md font-medium">Wydarzenia</div>
-            <div className="collapse-content">
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  className="checkbox"
-                  checked={eventsChecked}
-                  onChange={(e) => setEventsChecked(e.target.checked)}
-                />
-                <span>Wydarzenie</span>
+              <label htmlFor="keywords" className="block text-sm font-medium text-white">
+                 Wpisz słowa kluczowe
               </label>
-            </div>
+                <input
+                  id="keywords"
+                  type="text"
+                  className="input input-sm w-full"
+                  placeholder="Search..."
+                  value={keywords}
+                  onChange={(e) => setKeywords(e.target.value)}
+                />
+              </div>
           </div>
+          
           <div className="mb-2 collapse collapse-arrow">
-            <input type="checkbox" className="peer" defaultChecked />
+            
+          <input
+            id="collapsePrice"           
+            type="checkbox"
+            className="peer"
+           defaultChecked
+          aria-label="Rozwiń sekcję Cena" // lub "Toggle price filters"
+/>
             <div className="collapse-title text-md font-medium">Cena</div>
             <div className="collapse-content">
               <label className="flex items-center gap-2 mb-1">
@@ -203,7 +191,7 @@ function GamesPage() {
             </div>
           </div>
           <div className="mb-2 collapse collapse-arrow">
-            <input type="checkbox" className="peer" defaultChecked />
+            <input type="checkbox" aria-label="Rozwiń sekcję gatunków" className="peer" defaultChecked />
             <div className="collapse-title text-md font-medium">Gatunek</div>
             <div className="collapse-content">
               <label className="flex items-center gap-2 mb-1">
@@ -260,7 +248,7 @@ function GamesPage() {
             </div>
           </div>
           <div className="mb-2 collapse collapse-arrow">
-            <input type="checkbox" className="peer" defaultChecked />
+            <input type="checkbox" aria-label="Rozwiń sekcję funkcjonalnosci" className="peer" defaultChecked />
             <div className="collapse-title text-md font-medium">Funkcje</div>
             <div className="collapse-content">
               <label className="flex items-center gap-2 mb-1">
@@ -317,7 +305,7 @@ function GamesPage() {
             </div>
           </div>
           <div className="mb-2 collapse collapse-arrow">
-            <input type="checkbox" className="peer" defaultChecked />
+            <input type="checkbox" aria-label="Rozwiń sekcję typów" className="peer" defaultChecked />
             <div className="collapse-title text-md font-medium">Typ</div>
             <div className="collapse-content">
               <label className="flex items-center gap-2 mb-1">
@@ -390,23 +378,7 @@ function GamesPage() {
               </label>
             </div>
           </div>
-          <div className="mb-2 collapse collapse-arrow">
-            <input type="checkbox" className="peer" defaultChecked />
-            <div className="collapse-title text-md font-medium">
-              Subscriptions
-            </div>
-            <div className="collapse-content">
-              <label className="flex items-center gap-2">
-                <input
-                  type="checkbox"
-                  className="checkbox"
-                  checked={subscriptionsChecked}
-                  onChange={(e) => setSubscriptionsChecked(e.target.checked)}
-                />
-                <span>EA Play / Ubisoft+</span>
-              </label>
-            </div>
-          </div>
+          
         </aside>
 
         <div className="flex-1 p-4">
