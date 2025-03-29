@@ -75,26 +75,50 @@ const NavBar = () => {
         </ul>
       </div>
       <div className="navbar-end">
-        <button className="btn">
-          {" "}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="30"
-            height="30"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="white"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
+        <div class="dropdown">
+          <div tabindex="0" role="button" class="btn m-1">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="30"
+              height="30"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M10 2v2"></path>
+              <path d="M14 2v4"></path>
+              <path d="M17 2a1 1 0 0 1 1 1v9H6V3a1 1 0 0 1 1-1z"></path>
+              <path d="M6 12a1 1 0 0 0-1 1v1a2 2 0 0 0 2 2h2a1 1 0 0 1 1 1v2.9a2 2 0 1 0 4 0V17a1 1 0 0 1 1-1h2a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1"></path>
+            </svg>
+            Motyw
+          </div>
+          <ul
+            tabindex="0"
+            class="dropdown-content bg-base-300 rounded-box z-1 w-52 p-2 shadow-2xl"
           >
-            <path d="M10 2v2"></path>
-            <path d="M14 2v4"></path>
-            <path d="M17 2a1 1 0 0 1 1 1v9H6V3a1 1 0 0 1 1-1z"></path>
-            <path d="M6 12a1 1 0 0 0-1 1v1a2 2 0 0 0 2 2h2a1 1 0 0 1 1 1v2.9a2 2 0 1 0 4 0V17a1 1 0 0 1 1-1h2a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1"></path>
-          </svg>
-          Zmień motyw
-        </button>
+            <li>
+              <input
+                type="radio"
+                name="theme-dropdown"
+                class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+                aria-label="Podstawowy"
+                value="default"
+              />
+            </li>
+            <li>
+              <input
+                type="radio"
+                name="theme-dropdown"
+                class="theme-controller w-full btn btn-sm btn-block btn-ghost justify-start"
+                aria-label="Jasny"
+                value="epicgames-light"
+              />
+            </li>
+          </ul>
+        </div>
         <button className="btn">
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -102,7 +126,7 @@ const NavBar = () => {
             height="30"
             viewBox="0 0 24 24"
             fill="none"
-            stroke="white"
+            stroke="currentColor"
             stroke-width="2"
             stroke-linecap="round"
             stroke-linejoin="round"

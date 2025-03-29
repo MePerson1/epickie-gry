@@ -41,7 +41,7 @@ function GamesPage() {
           return false;
         }
       }
-    
+
       if (priceFilters.length > 0) {
         const p = parsePrice(game.price);
         let matchPrice = false;
@@ -67,7 +67,7 @@ function GamesPage() {
           return false;
         }
       }
-      
+
       return true;
     });
   }
@@ -109,31 +109,37 @@ function GamesPage() {
         <aside className="hidden lg:block w-64 bg-base-100 p-4">
           <h2 className="text-xl font-bold mb-4">Filtry</h2>
           <div className="mb-2 collapse collapse-arrow">
-            <input type="checkbox" aria-label="Rozwiń sekcję Wyszukiwarka" className="peer" defaultChecked />
-            <div className="collapse-title text-md font-medium">Wyszukiwarka</div>
+            <input
+              type="checkbox"
+              aria-label="Rozwiń sekcję Wyszukiwarka"
+              className="peer"
+              defaultChecked
+            />
+            <div className="collapse-title text-md font-medium">
+              Wyszukiwarka
+            </div>
             <div className="collapse-content">
-              <label htmlFor="keywords" className="block text-sm font-medium text-white">
-                 Wpisz szukana frazę
+              <label htmlFor="keywords" className="block text-sm font-medium ">
+                Wpisz szukana frazę
               </label>
-                <input
-                  id="keywords"
-                  type="text"
-                  className="input input-sm w-full"
-                  value={keywords}
-                  onChange={(e) => setKeywords(e.target.value)}
-                />
-              </div>
+              <input
+                id="keywords"
+                type="text"
+                className="input input-sm w-full"
+                value={keywords}
+                onChange={(e) => setKeywords(e.target.value)}
+              />
+            </div>
           </div>
-          
+
           <div className="mb-2 collapse collapse-arrow">
-            
-          <input
-            id="collapsePrice"           
-            type="checkbox"
-            className="peer"
-           defaultChecked
-          aria-label="Rozwiń sekcję Cena" // lub "Toggle price filters"
-/>
+            <input
+              id="collapsePrice"
+              type="checkbox"
+              className="peer"
+              defaultChecked
+              aria-label="Rozwiń sekcję Cena" // lub "Toggle price filters"
+            />
             <div className="collapse-title text-md font-medium">Cena</div>
             <div className="collapse-content">
               <label className="flex items-center gap-2 mb-1">
@@ -190,7 +196,12 @@ function GamesPage() {
             </div>
           </div>
           <div className="mb-2 collapse collapse-arrow">
-            <input type="checkbox" aria-label="Rozwiń sekcję gatunków" className="peer" defaultChecked />
+            <input
+              type="checkbox"
+              aria-label="Rozwiń sekcję gatunków"
+              className="peer"
+              defaultChecked
+            />
             <div className="collapse-title text-md font-medium">Gatunek</div>
             <div className="collapse-content">
               <label className="flex items-center gap-2 mb-1">
@@ -247,7 +258,12 @@ function GamesPage() {
             </div>
           </div>
           <div className="mb-2 collapse collapse-arrow">
-            <input type="checkbox" aria-label="Rozwiń sekcję funkcjonalnosci" className="peer" defaultChecked />
+            <input
+              type="checkbox"
+              aria-label="Rozwiń sekcję funkcjonalnosci"
+              className="peer"
+              defaultChecked
+            />
             <div className="collapse-title text-md font-medium">Funkcje</div>
             <div className="collapse-content">
               <label className="flex items-center gap-2 mb-1">
@@ -304,7 +320,12 @@ function GamesPage() {
             </div>
           </div>
           <div className="mb-2 collapse collapse-arrow">
-            <input type="checkbox" aria-label="Rozwiń sekcję typów" className="peer" defaultChecked />
+            <input
+              type="checkbox"
+              aria-label="Rozwiń sekcję typów"
+              className="peer"
+              defaultChecked
+            />
             <div className="collapse-title text-md font-medium">Typ</div>
             <div className="collapse-content">
               <label className="flex items-center gap-2 mb-1">
@@ -377,7 +398,6 @@ function GamesPage() {
               </label>
             </div>
           </div>
-          
         </aside>
 
         <div className="flex-1 p-4">
