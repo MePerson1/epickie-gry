@@ -8,3 +8,18 @@
 - Vite
 - Tailwind
 - Daisyui
+
+### How to run project
+
+1. Ensure you have Node.js installed.
+2. Install dependecies
+
+```sh
+  npm install
+```
+
+3. Start the development server
+
+```sh
+npm run dev
+```
