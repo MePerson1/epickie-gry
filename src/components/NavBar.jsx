@@ -1,7 +1,14 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ changeFontSize }) => {
+  const handleFontSizeChange = () => {
+    changeFontSize((prevSize) => {
+      const currentSize = parseInt(prevSize, 10);
+      return `${currentSize + 5}px`; // Increase the font size by 5px
+    });
+  };
+
   return (
     <nav className="navbar bg-secondary shadow-sm">
       <div className="navbar-start">
@@ -46,7 +53,12 @@ const NavBar = () => {
               <button className="btn btn-outline">Zmień motyw</button>
             </li>
             <li>
-              <button className="btn btn-outline">Zmień czcionkę</button>
+              <button
+                className="btn btn-outline"
+                onClick={handleFontSizeChange}
+              >
+                Zmień czcionkę
+              </button>
             </li>
           </ul>
         </div>
@@ -95,7 +107,7 @@ const NavBar = () => {
           </svg>
           Zmień motyw
         </button>
-        <button className="btn">
+        <button className="btn" onClick={handleFontSizeChange}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="30"
@@ -114,9 +126,47 @@ const NavBar = () => {
           </svg>
           Zmień czcionkę
         </button>
+
         <NavLink to="/login" className="btn btn-accent">
           Zaloguj się
         </NavLink>
+        <div class="join join-vertical">
+          <input
+            type="radio"
+            name="theme-buttons"
+            class="btn theme-controller join-item"
+            aria-label="Default"
+            value="default"
+          />
+          <input
+            type="radio"
+            name="theme-buttons"
+            class="btn theme-controller join-item"
+            aria-label="Retro"
+            value="retro"
+          />
+          <input
+            type="radio"
+            name="theme-buttons"
+            class="btn theme-controller join-item"
+            aria-label="winter"
+            value="winter"
+          />
+          <input
+            type="radio"
+            name="theme-buttons"
+            class="btn theme-controller join-item"
+            aria-label="epicgames-light"
+            value="epicgames-light"
+          />
+          <input
+            type="radio"
+            name="theme-buttons"
+            class="btn theme-controller join-item"
+            aria-label="Aqua"
+            value="aqua"
+          />
+        </div>
       </div>
     </nav>
   );
